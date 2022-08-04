@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.harman.jetpacknavigation.databinding.FragmentSecondBinding
+import com.harman.jetpacknavigation.MainActivity
+import com.harman.jetpacknavigation.databinding.FragmentFirstBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,11 +27,12 @@ class SecondFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var binding: FragmentSecondBinding
-    lateinit var action :MainActivity
+    lateinit var action : MainActivity
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        action = activity as MainActivity
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -39,48 +43,62 @@ class SecondFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentSecondBinding.inflate(layoutInflater)
+
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_second, container, false)
+      /*  binding = androidx.databinding.DataBindingUtil.inflate(layoutInflater, R.layout.fragment_second, container, false)
         arguments?.let {
             var testingValue = it.getString("Test")?:""
             binding.tv2.setText(testingValue)
         }
+
+      */
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.tv2.setOnClickListener {
+            var bundle = Bundle()
+            bundle.putString("Test", "testing")
+            findNavController().navigate(R.id.action_secondFragment_to_firstFragment, bundle)
+        }
+
     }
     override fun onStart() {
         super.onStart()
-        Toast.makeText(action,"on start",Toast.LENGTH_LONG)
+        Toast.makeText(action,"on start",Toast.LENGTH_LONG).show()
     }
 
     override fun onResume() {
         super.onResume()
-        Toast.makeText(action,"on resume",Toast.LENGTH_LONG)
+        Toast.makeText(action,"on resume",Toast.LENGTH_LONG).show()
     }
 
     override fun onPause() {
         super.onPause()
-        Toast.makeText(action,"on pause",Toast.LENGTH_LONG)
+        Toast.makeText(action,"on pause",Toast.LENGTH_LONG).show()
     }
 
     override fun onStop() {
         super.onStop()
-        Toast.makeText(action,"on stop",Toast.LENGTH_LONG)
+        Toast.makeText(action,"on stop",Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Toast.makeText(action,"on destroy view",Toast.LENGTH_LONG)
+        Toast.makeText(action,"on destroy view",Toast.LENGTH_LONG).show()
     }
     override fun onDestroy() {
         super.onDestroy()
-        Toast.makeText(action,"on destroy",Toast.LENGTH_LONG)
+        Toast.makeText(action,"on destroy",Toast.LENGTH_LONG).show()
     }
 
 
 
     override fun onDetach() {
         super.onDetach()
-        Toast.makeText(action,"ondetach",Toast.LENGTH_LONG)
+        Toast.makeText(action,"ondetach",Toast.LENGTH_LONG).show()
     }
     companion object {
         /**

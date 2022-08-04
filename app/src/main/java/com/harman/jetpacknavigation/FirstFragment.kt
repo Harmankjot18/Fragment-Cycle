@@ -1,11 +1,12 @@
 package com.harman.jetpacknavigation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.harman.jetpacknavigation.databinding.FragmentFirstBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -23,6 +24,7 @@ class FirstFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var binding: FragmentFirstBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +49,7 @@ class FirstFragment : Fragment() {
         binding.tv1.setOnClickListener {
             var bundle = Bundle()
             bundle.putString("Test", "testing")
-           findNavController().navigate(R.id.action_firstFragment_to_secondFragment, bundle)
+            findNavController().navigate(R.id.action_firstFragment_to_secondFragment, bundle)
         }
 
     }
